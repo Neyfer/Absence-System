@@ -21,7 +21,36 @@
     </aside>
 
     <main class="main">
+        <div style="text-align: left; margin-left:-45%; margin-top:2%;">
+    <form action="month" method="get" id="form">
+            <label for="months" class="text" style="margin-left: 0;">Mes: </label>
+        <select name="months" id="m-op" class="text">
+            <option value="2" >Febrero</option>
+            <option value="1" >Enero</option>
+            <option value="3" >Marzo</option>
+            <option value="4" >Abril</option>
+            <option value="5" >Mayo</option>
+            <option value="6" >Junio</option>
+            <option value="7" >Julio</option>
+            <option value="8" >Agosto</option>
+            <option value="9" >Septiembre</option>
+            <option value="10" >Octubre</option>
+            <option value="11" >Noviembre</option>
+            <option value="12" >Diciembre</option>
+        </select>
+
+        <input type="submit" value="Aplicar" class="add-b">
+    </form>
+    </div>
+    
+<br>
+        <div id="canvas-holder" style="width: 50%; height:60%">
+            <canvas id="myChart"></canvas>
+        </div>
         
+
+        <script src="js/chart.min.js"></script>
+        <script src="js/main.js"></script>
     </main>
 </body>
 </html>

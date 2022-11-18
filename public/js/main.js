@@ -104,4 +104,90 @@ function fill_Absence(data){
 }
 
 
+//SUBMIT THE MONTH FORM FOR THE GRAPHICS
 
+if(document.URL.includes("Graficos.ejs")){
+
+    get();
+
+async function get(de){
+
+    if(de == 1){
+        document.getElementById('myChart').remove();
+        document.getElementById("canvas-holder").innerHTML = `<canvas id="myChart"></canvas>`;
+    }
+    
+
+    const res = await fetch("http://localhost:3000/charts", {
+    method: "GET"
+})
+    let = data = await res.json();
+
+    console.log(data);
+    
+    let names = Array();
+    let values = Array();
+    
+    data.forEach(element => {
+        names.push(element.name);    
+    });
+
+    names.forEach(item => {
+        const test = fetch(`http://localhost:3000/month/${item}`)
+        .then(response => response.json)
+        .then(data => {
+            console.log(data);
+        })
+
+        console.log(test);
+    })
+
+    const ctx = document.getElementById('myChart').getContext('2d');
+
+
+    
+    const myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: names,
+        datasets: [{
+            label: '# de dias',
+            data: values,
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});
+
+
+}
+    console.log("loaded");
+    let options = document.getElementById("m-op");
+
+        options.addEventListener("change", ()=>{
+           //document.getElementById("form").submit();
+            get(1)
+        })
+}

@@ -6,6 +6,8 @@ const bodyParser = require('body-parser');
 
 //DATABASE
 const mysql = require("mysql");
+const { compile } = require("ejs");
+const { json } = require("express");
 
 let con = mysql.createConnection({
     host: "localhost",
@@ -13,7 +15,6 @@ let con = mysql.createConnection({
     password: "",
     database: "asistencia"
 })
-
 
 con.connect(function(err){
     if(err){
@@ -55,6 +56,8 @@ app.get("/info", (req, res) =>{
 
 //GET TEACHER'S ABSENCES
 app.get("/report", (req, res)=>{
+
+  
     con.query("SELECT inasistencia.maestro, inasistencia.tipo, inasistencia.fecha, maestros.tel, maestros.area FROM inasistencia, maestros WHERE inasistencia.maestro = maestros.name", function(err, rows){
         if(err){
             throw err
@@ -64,15 +67,29 @@ app.get("/report", (req, res)=>{
     })
 })
 
+
+
 //ADD ABSENCES
 app.post("/add-inasistencia", (req, res)=>{
     let teacher = req.body.maestros;
     let type = req.body.type;
     let date = req.body.date;
+    console.log(type);
     con.query(`INSERT INTO inasistencia(maestro, tipo, fecha) VALUES('${teacher}', '${type}', '${date}')`);
+    con.query(`SELECT * FROM i_t WHERE name = '${teacher}'`, function(err, rows){
+        let total = rows[0].total + 1;
+        con.query(`UPDATE i_t SET total = ${total} WHERE name = '${teacher}'`);
+    })
     res.redirect("Reporte.ejs?success");
 })
-   
+
+
+app.get("/charts", (req, res)=>{
+    con.query(`SELECT * FROM i_t`, function(err, rows){
+        res.json(rows);
+    })
+})
+
 //LOAD CONTROL PAGE
 app.get("/control.ejs", (req, res) => {
     res.render("control");
@@ -96,7 +113,18 @@ app.post("/add-m", function(req, res){
     var mail = req.body.mail;
     var area = req.body.area;
     con.query(`INSERT INTO maestros(name, tel, email, area) VALUES ('${name}', '${tel}', '${mail}', '${area}')`);
+    con.query(`INSERT INTO i_t(name, total) VALUES('${name}', 0)`);
     res.redirect("maestros.ejs?success");
+})
+
+//GET INFO FOR THE GRAPHICS
+
+app.get("/month/:name", (req, res)=>{
+    let name = req.params.name;
+    con.query(`SELECT * FROM inasistencia WHERE maestro = '${name}'`, function(err, rows){
+    res.json(rows);
+    console.log(rows);
+    })
 })
 
 
