@@ -124,6 +124,7 @@ app.post("/add-m", function(req, res){
 app.get("/month/:name/:month", (req, res)=>{
     let name = req.params.name;
     let month = req.params.month;
+    console.log(name)
 
     if(month == 0){
         con.query(`SELECT * FROM inasistencia WHERE maestro = '${name}'`, async function(err, rows){
