@@ -127,12 +127,12 @@ app.get("/month/:name/:month", (req, res)=>{
 
     if(month == 0){
         con.query(`SELECT * FROM inasistencia WHERE maestro = '${name}'`, async function(err, rows){
-            console.log(rows.length);
+            console.log(rows);
             await res.json(rows);
         })
     }else{
         con.query(`SELECT * FROM inasistencia WHERE maestro = '${name}' AND MONTH(fecha) = ${month}`, async function(err, rows){
-            console.log(rows.length);
+            console.log(rows);
             await res.json(rows);
             })
     }
