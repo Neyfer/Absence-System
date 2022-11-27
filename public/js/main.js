@@ -1,5 +1,5 @@
 
-const baseURL = "http://localhost:3000/info";
+const baseURL = "https://neyfer-m-a-s.onrender.com/info";
 
 if(document.URL.includes("maestros.ejs") || document.URL.includes("control.ejs")){
     get_maestros();
@@ -72,7 +72,7 @@ function fill_Teachers(data){
         btn.addEventListener("click", (e)=>{
         e.preventDefault();
         teachers_m.style.display = "block";
-            fetch(`http://localhost:3000/getteacher/${btn.id}`).then(response=>response.json()).then(data=>{
+            fetch(`https://neyfer-m-a-s.onrender.com/getteacher/${btn.id}`).then(response=>response.json()).then(data=>{
                 console.log(data)
                 document.getElementById("name").value = data[0].name;
                 document.getElementById("tel").value = data[0].tel;
@@ -91,7 +91,7 @@ function fill_Teachers(data){
          btn.addEventListener("click", (e)=>{
              e.preventDefault();
          if(confirm("¿SEGURO QUE QUIERES ELIMINAR ESTE MAESTRO(A)?") == true){
-             fetch(`http://localhost:3000/delete_m/${btn.id}`).then(response => response.json()).then(date=>{
+             fetch(`https://neyfer-m-a-s.onrender.com/delete_m/${btn.id}`).then(response => response.json()).then(date=>{
                  alert("Maestro Eliminado con exito!!");
                  location.reload();
              })
@@ -115,7 +115,7 @@ function fill_teacher_option(data){
 //GET INFO FROM ABSENCE TABLE!!!!!
 
 async function get_Report(){
-    const res = await fetch("http://localhost:3000/report", {
+    const res = await fetch("https://neyfer-m-a-s.onrender.com/report", {
         method: "GET"
     })
 
@@ -159,14 +159,14 @@ function fill_Absence(data){
                 absence_f.style.display = "block";
 
                 //FILL EVERYTHING
-                fetch("http://localhost:3000/info").then(response=>response.json()).then(info=>{
+                fetch("https://neyfer-m-a-s.onrender.com/info").then(response=>response.json()).then(info=>{
                     info.forEach(data=>{
                         let html = `<option value="${data.name}">${data.name}</option>`
                         document.getElementById("maestros_option").innerHTML += html;
                     })
                     
                 })
-                fetch(`http://localhost:3000/absence_form_edit/${btn.id}`).then(response => response.json()).then(data=>{
+                fetch(`https://neyfer-m-a-s.onrender.com/absence_form_edit/${btn.id}`).then(response => response.json()).then(data=>{
                     document.getElementById("maestros_option").value = data[0].maestro;
                     document.getElementById("type").value = data[0].tipo;
                     document.getElementById("id_h").value = data[0].id;
@@ -194,7 +194,7 @@ function fill_Absence(data){
             btn.addEventListener("click", (e)=>{
                 e.preventDefault();
             if(confirm("¿SEGURO QUE QUIERES ELIMINAR ESTA INASISTENCIA?") == true){
-                fetch(`http://localhost:3000/delete_i/${btn.id}`).then(response => response.json()).then(date=>{
+                fetch(`https://neyfer-m-a-s.onrender.com/delete_i/${btn.id}`).then(response => response.json()).then(date=>{
                     alert("Inasistencia Eliminada con exito!!");
                     location.reload();
                          })
@@ -218,7 +218,7 @@ function fill_Absence(data){
             f1 = "NEYFER";
             f2 = "NEYFER2"
         }
-            fetch(`http://localhost:3000/filter_i/${f1}/${f2}/${teachers}`).then(response => response.json()).then(data =>{
+            fetch(`https://neyfer-m-a-s.onrender.com/filter_i/${f1}/${f2}/${teachers}`).then(response => response.json()).then(data =>{
                 if(data.length > 0){
                     document.getElementById("absences_table_body").innerHTML = "";
                 
@@ -277,7 +277,7 @@ let authotization = false;
         if(document.URL.includes("Graficos.ejs")){
         let month = document.getElementById("m-op");
         list.pop();
-        const res = await fetch(`http://localhost:3000/month/${item}/${month.value}`, {
+        const res = await fetch(`https://neyfer-m-a-s.onrender.com/month/${item}/${month.value}`, {
         method: "GET"
     })
     let data = await res.json();
@@ -290,7 +290,7 @@ let authotization = false;
 }else{
     let teacher = document.getElementById("m-op");
         list.pop();
-        const res = await fetch(`http://localhost:3000/teacher/${item}/${teacher.value}`, {
+        const res = await fetch(`https://neyfer-m-a-s.onrender.com/teacher/${item}/${teacher.value}`, {
         method: "GET"
     })
     let data = await res.json();
@@ -385,7 +385,7 @@ async function get(de, times, label, req){
 if(document.URL.includes("Graficos.ejs")){
     let times = 0;
     let teachers = Array();
-    fetch(`http://localhost:3000/charts`).then(response => response.json()).then(data=>{
+    fetch(`https://neyfer-m-a-s.onrender.com/charts`).then(response => response.json()).then(data=>{
 
         data.forEach(item=>{
             teachers.push(item.name)
@@ -408,7 +408,7 @@ if(document.URL.includes("Graficos.ejs")){
 if(document.URL.includes("chart_teacher.ejs")){
     let times = 0;
 
-    fetch(`http://localhost:3000/charts`).then(response=>response.json()).then(data=>{
+    fetch(`https://neyfer-m-a-s.onrender.com/charts`).then(response=>response.json()).then(data=>{
         data.forEach(item=>{
             html = `<option value = '${item.name}'>${item.name}</option>`;
             document.getElementById("m-op").innerHTML += html;
@@ -420,7 +420,7 @@ if(document.URL.includes("chart_teacher.ejs")){
 
         let maestro = document.getElementById("m-op").value;
         console.log(maestro);
-        fetch(`http://localhost:3000/total_absences/${maestro}`).then(response => response.json()).then(data=>{
+        fetch(`https://neyfer-m-a-s.onrender.com/total_absences/${maestro}`).then(response => response.json()).then(data=>{
         console.log(data)
         document.getElementById("total").innerText = "Total: " + data.length;
         })
