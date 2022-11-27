@@ -328,7 +328,6 @@ async function get(de, times, label, req){
             }else{
                  getTotal(1, values);
             }
-            if(i == names.length - 1){
                 console.log("Cantidad Nombres: " + names.length)
                 console.log("Cantidad values: " + values.length)
                 console.log("Nombres: " + names)
@@ -377,7 +376,7 @@ async function get(de, times, label, req){
 
 }
 
-}
+
 //SUBMIT THE MONTH FORM FOR THE GRAPHICS
 
 if(document.URL.includes("Graficos.ejs")){
