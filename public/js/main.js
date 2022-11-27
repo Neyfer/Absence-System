@@ -318,7 +318,7 @@ async function get(de, times, label, req){
             }
             if(i == names.length - 1){
                 
-            await getTotal(names[i], values);
+                 getTotal(names[i], values);
             }else{
                  getTotal(i+1, values);
             }
