@@ -283,10 +283,6 @@ let authotization = false;
     let data = await res.json();
     console.log(data);
     list.push(data.length);
-    if(list.length == names.length - 1){
-        authotization = true;
-        console.log(authotization);
-    }
 }else{
     let teacher = document.getElementById("m-op");
         list.pop();
