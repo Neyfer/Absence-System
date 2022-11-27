@@ -124,16 +124,25 @@ app.post("/add-m", function(req, res){
 app.get("/month/:name/:month", (req, res)=>{
     let name = req.params.name;
     let month = req.params.month;
+    console.log(name)
 
     if(month == 0){
+<<<<<<< HEAD
         con.query(`
         select inasistencia.tipo, maestros.name from inasistencia, maestros WHERE inasistencia.maestro = maestros.name order by maestros.id ASC;`, async function(err, rows){
+=======
+        con.query(`SELECT * FROM inasistencia WHERE maestro = '${name}'`, async function(err, rows){
+>>>>>>> 52aeec736a4b70c2a0a1e18c06567cd840e6f4ab
             console.log(rows);
             await res.json(rows);
         })
     }else{
         con.query(`SELECT * FROM inasistencia WHERE maestro = '${name}' AND MONTH(fecha) = ${month}`, async function(err, rows){
+<<<<<<< HEAD
             console.log(rows.length);
+=======
+            console.log(rows);
+>>>>>>> 52aeec736a4b70c2a0a1e18c06567cd840e6f4ab
             await res.json(rows);
             })
     }

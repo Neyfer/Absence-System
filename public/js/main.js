@@ -1,6 +1,8 @@
 
 const baseURL = "https://neyfer-m-a-s.onrender.com/info";
 
+console.log("3.0")
+
 if(document.URL.includes("maestros.ejs") || document.URL.includes("control.ejs")){
     get_maestros();
 }
@@ -292,6 +294,8 @@ let authotization = false;
         console.log(list);
     })
     
+    console.log(data);
+    list.push(data.length);
 }else{
     let teacher = document.getElementById("m-op");
         list.pop();
@@ -324,6 +328,10 @@ async function get(de, times, label, req){
             }else{
                  getTotal(1, values);
             }
+<<<<<<< HEAD
+=======
+            if(i == names.length - 1){
+>>>>>>> 52aeec736a4b70c2a0a1e18c06567cd840e6f4ab
                 console.log("Cantidad Nombres: " + names.length)
                 console.log("Cantidad values: " + values.length)
                 console.log("Nombres: " + names)
