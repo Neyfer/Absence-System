@@ -328,10 +328,7 @@ async function get(de, times, label, req){
             }else{
                  getTotal(1, values);
             }
-<<<<<<< HEAD
-=======
             if(i == names.length - 1){
->>>>>>> 52aeec736a4b70c2a0a1e18c06567cd840e6f4ab
                 console.log("Cantidad Nombres: " + names.length)
                 console.log("Cantidad values: " + values.length)
                 console.log("Nombres: " + names)
@@ -380,7 +377,7 @@ async function get(de, times, label, req){
 
 }
 
-
+}
 //SUBMIT THE MONTH FORM FOR THE GRAPHICS
 
 if(document.URL.includes("Graficos.ejs")){
@@ -437,10 +434,4 @@ if(document.URL.includes("chart_teacher.ejs")){
             }, 10);
         })
     }
-
-
-
-
-
-
 
