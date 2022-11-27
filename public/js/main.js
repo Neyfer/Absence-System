@@ -324,9 +324,9 @@ async function get(de, times, label, req){
                 
             await getTotal(names[i], values);
             }else{
-                await getTotal(i+1, values);
+                 getTotal(i+1, values);
             }
-            if(i == names.length - 1 && values.length > 0){
+            if(i == names.length - 1){
                 console.log("Cantidad Nombres: " + names.length)
                 console.log("Cantidad values: " + values.length)
                 console.log("Nombres: " + names)
