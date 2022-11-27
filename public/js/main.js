@@ -310,9 +310,9 @@ async function get(de, times, label, req){
 
         for(i=0;i<names.length;i++){
             if(document.URL.includes("Graficos.ejs")){
-            getTotal(names[i], values);
+            await getTotal(names[i], values);
             }else{
-                getTotal(i+1, values);
+                await getTotal(i+1, values);
             }
             if(i == names.length - 1 && values.length > 0){
                 console.log("Cantidad Nombres: " + names.length)
