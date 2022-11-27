@@ -4,20 +4,21 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Inasistencia</title>
     <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
     <header class="header">
         <a href="/"><img src="img/mono.png" alt="" class="mono" srcset=""></a>
-        <h2 class="name">Control de asistencia de maestros</h2>
+        <h2 class="name">C.E.M.G Marco Aurelio Soto (Control de Inasistencias)</h2>
     </header>
 
     <aside class="aside">
         <a href="maestros.ejs" class="aside-e">Maestros</a>
-        <a href="control.ejs" class="aside-e" style="background-color: rgb(187, 187, 187);">Agg Inasistencia</a>
+        <a href="control.ejs" class="aside-e" style="background-color: rgb(187, 187, 187); font-weight: 600;">Agg Inasistencia</a>
         <a href="Reporte.ejs" class="aside-e">Reporte</a>
-        <a href="Graficos.ejs" class="aside-e">Graficos</a>
+        <a href="Graficos.ejs" class="aside-e">Grafico/General</a>
+        <a href="chart_teacher.ejs" class="aside-e">Grafico/Individual</a>
     </aside>
 
     <main class="main">
@@ -25,19 +26,19 @@
         <form action="add-inasistencia" method="post" class="form m_f" style = "margin-top: 5%;">
             <h3>Agregar Inasistencia</h3>
             <div class="pack"><label for="name">Maestro:</label>
-            <select name="maestros" id="maestros_option" class="text">
+            <select name="maestros" required id="maestros_option" class="text">
                 
             </select>
             </div>
             <div class="pack"><label for="tel">Tipo:</label>
-                <select name="type" id="type" class="text">
+                <select required name="type" id="type" class="text">
                     <option value="NSP">NSP</option>
                     <option value="Permiso">Permiso</option>
                     <option value="Excusa">Excusa</option>
                 </select>
             </div>
             <div class="pack"><label for="E-mail">Fecha:</label>
-                <input type="date" name="date" id="" class="text">
+                <input type="date" required date-format="dd-mm-yyyy" name="date" id="" class="text">
             </div>
             <div class="form_btn_Sec">
                 <a href="maestros.ejs"><input type="button" class="" value="Cancelar"></a>
@@ -45,7 +46,7 @@
             </div>
         
         </form>
-
+        <footer>Copyright &copy 2022 by Neyfer Coto - All Rights Reserved</footer>
     </main>
 
     <script src="js/main.js"></script>

@@ -4,20 +4,21 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Grafico-General</title>
     <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
     <header class="header">
         <a href="/"><img src="img/mono.png" alt="" class="mono" srcset=""></a>
-        <h2 class="name">Control de asistencia de maestros</h2>
+        <h2 class="name">C.E.M.G Marco Aurelio Soto (Control de Inasistencias)</h2>
     </header>
 
     <aside class="aside">
         <a href="maestros.ejs" class="aside-e">Maestros</a>
         <a href="control.ejs" class="aside-e">Agg Inasistencia</a>
         <a href="Reporte.ejs" class="aside-e">Reporte</a>
-        <a href="Graficos.ejs" class="aside-e" style="background-color: rgb(187, 187, 187);">Graficos</a>
+            <a href="Graficos.ejs" class="aside-e" style="background-color: rgb(187, 187, 187); font-weight: 600;">Grafico/General</a>
+            <a href="chart_teacher.ejs" class="aside-e">Grafico/Individual</a>
     </aside>
 
     <main class="main">
@@ -25,8 +26,9 @@
     <form action="month" method="get" id="form">
             <label for="months" class="text" style="margin-left: 0;">Mes: </label>
         <select name="months" id="m-op" class="text">
-            <option value="2" >Febrero</option>
+            <option value="0">Todos</option>
             <option value="1" >Enero</option>
+            <option value="2" >Febrero</option>
             <option value="3" >Marzo</option>
             <option value="4" >Abril</option>
             <option value="5" >Mayo</option>
@@ -44,13 +46,16 @@
     </div>
     
 <br>
-        <div id="canvas-holder" style="width: 50%; height:60%">
+        <div id="canvas-holder" style="width: 70%; height:max-content; margin: auto;">
             <canvas id="myChart"></canvas>
         </div>
         
 
         <script src="js/chart.min.js"></script>
         <script src="js/main.js"></script>
+        <script src="js/behaviors.js"></script>
+
+        <footer>Copyright &copy 2022 by Neyfer Coto - All Rights Reserved</footer>
     </main>
 </body>
 </html>

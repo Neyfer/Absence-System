@@ -4,37 +4,93 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Reporte</title>
     <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
     <header class="header">
         <a href="/"><img src="img/mono.png" alt="" class="mono" srcset=""></a>
-        <h2 class="name">Control de asistencia de maestros</h2>
+        <h2 class="name">C.E.M.G Marco Aurelio Soto (Control de Inasistencias)</h2>
     </header>
 
     <aside class="aside">
         <a href="maestros.ejs" class="aside-e">Maestros</a>
         <a href="control.ejs" class="aside-e">Agg Inasistencia</a>
-        <a href="Reporte.ejs" class="aside-e" style="background-color: rgb(187, 187, 187);">Reporte</a>
-        <a href="Graficos.ejs" class="aside-e">Graficos</a>
+        <a href="Reporte.ejs" class="aside-e" style="background-color: rgb(187, 187, 187); font-weight: 600;">Reporte</a>
+        <a href="Graficos.ejs" class="aside-e">Graficos/General</a>
+        <a href="chart_teacher.ejs" class="aside-e">Grafico/Individual</a>
     </aside>
 
     <main class="main">
+        <form action="" method="post" style="margin-bottom: 2%; margin-left:5%; margin-top:1%;">
+            <label for="f1" class="text" style="left: 0%;">Desde</label> <input  reaquired type="date" name="f1" id="f1" class="text" style="left:0%">
+            <label for="f2" class="text" style="left: 0%;">Hasta</label> <input  reaquired type="date" name="f2" id="f2" class="text" style="left:0%">
+            <label for="m" class="text" id="" style="left: 0%;">Maestro</label>
+            <select name="teacher" id="m_input" class="text" style="left:0%">
+                <option value="0">Todos</option>
+            </select>
+
+            <input type="button" id="filter_btn" value="Aplicar" class="apply">
+
+            <div style="margin-left: 90%; margin-top: -3%;">
+                <h4 id="i-t">Total: </h4h>
+            </div>
+        </form>
+
+       
 
         <table id="absences_table">
-            <tr>
-                <th>N°</th>
-                <th>Maestro</th>
-                <th>Tipo-Inasistencia</th>
-                <th>Telefono</th>
-                <th>Area</th>
-                <th>Fecha</th>
-            </tr>
+            <thead>
+                <tr>
+                    <th>N°</th>
+                    <th>Maestro</th>
+                    <th>Tipo-Inasistencia</th>
+                    <th>Telefono</th>
+                    <th>Area</th>
+                    <th>Fecha</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            
+            <tbody id="absences_table_body">
+
+            </tbody>
         </table>
-        
+
+        <!--EDIT FORM-->
+
+           <div class="manto manto_m">
+            <form action="edit-i" method="post" class="form m_f" style = "margin-top: 5%;">
+                <h3>Editar Inasistencia</h3>
+                <div class="pack"><label for="name">Maestro:</label>
+                <select name="maestros" id="maestros_option" class="text">
+                    
+                </select>
+                </div>
+                <div class="pack"><label for="tel">Tipo:</label>
+                    <select name="type" id="type" class="text">
+                        <option value="NSP">NSP</option>
+                        <option value="Permiso">Permiso</option>
+                        <option value="Excusa">Excusa</option>
+                    </select>
+                </div>
+                <div class="pack"><label for="E-mail">Fecha:</label>
+                    <input type="date" name="date" id="date" class="text">
+                </div>
+
+                <input type="hidden" name="id_h" id="id_h">
+                <div class="form_btn_Sec">
+                    <input type="button" class="cancel" value="Cancelar">
+                    <input type="submit" class="add-b" value="Guardar">
+                </div>
+            
+            </form>
+        </div>
+        <footer>Copyright &copy 2022 by Neyfer Coto - All Rights Reserved</footer>
     </main>
 
     <script src="js/main.js"></script>
+
+    
 </body>
 </html>

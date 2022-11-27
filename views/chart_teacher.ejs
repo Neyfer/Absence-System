@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grafico Por Maestro</title>
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+    <header class="header">
+        <a href="/"><img src="img/mono.png" alt="" class="mono" srcset=""></a>
+        <h2 class="name">C.E.M.G Marco Aurelio Soto (Control de Inasistencias)</h2>
+    </header>
+
+    <aside class="aside">
+        <a href="maestros.ejs" class="aside-e">Maestros</a>
+        <a href="control.ejs" class="aside-e">Agg Inasistencia</a>
+        <a href="Reporte.ejs" class="aside-e">Reporte</a>
+            <a href="Graficos.ejs" class="aside-e" >Grafico/General</a>
+            <a href="chart_teacher.ejs" class="aside-e" style="background-color: rgb(187, 187, 187); font-weight: 600;">Grafico/Individual</a>
+    </aside>
+
+    <div class="main">
+
+        
+    <form action="month" method="get" id="form">
+        <label for="months" class="text" style="margin-left: -30%;">Maestro: </label>
+        <select name="" class="text" id="m-op">
+        </select>
+
+        <label for="no one" class="text" style="margin-left: 60%;" id="total">Total: </label>
+    </form>
+<br>
+
+        <div id="canvas-holder" style="width: 85%; height:max-content; margin: auto;">
+            <canvas id="myChart"></canvas>
+        </div>
+        
+
+        <script src="js/chart.min.js"></script>
+        <script src="js/main.js"></script>
+
+        <footer>Copyright &copy 2022 by Neyfer Coto - All Rights Reserved</footer>
+    </div>
+</body>
+</html>

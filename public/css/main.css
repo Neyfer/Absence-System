@@ -1,4 +1,10 @@
+:root{
+    --mono-green: rgb(0 168 90);
+}
 
+body{
+    overflow: hidden;
+}
 
 .header{
     position: absolute;
@@ -18,8 +24,10 @@
 
 .name{
     position: absolute;
+    font-family: sans-serif;
+    font-size: 15pt;
     color: white;
-    top: 4%;
+    top: 15%;
     left: 7%;
 }
 
@@ -51,20 +59,31 @@
 
 .main{
     position: absolute;
-    background-color: rgb(231, 231, 231);
+    background-color: rgb(245, 245, 245);
     width: 88%;
     height: 90vh;
     left: 12%;
     top: 11.5%;
+    overflow-x: scroll;
 }
 
 table{
     border-collapse: collapse;
     margin: 10px;
+    width: 90%;
+    text-align: center;
+    margin: auto;
 }
 
 td, th{
     border: 2px solid black;
+    padding: 5px;
+    background-color: rgb(251, 251, 251);
+    font-family: sans-serif;
+}
+
+th{
+    background-color: bisque;
 }
 
 .form{
@@ -113,4 +132,31 @@ td, th{
     left: 0;
     top: 0;
     display: none;
+}
+
+.i-expand{
+    margin-top: -1.5; position: absolute; margin-left: 35%;
+    -webkit-transform:rotate(-90deg);
+}
+
+.apply{
+    padding: 5px;
+    background-color: rgb(200, 200, 200);
+    border-radius: 10%;
+    font-weight: 550;
+}
+
+.add_maestro{
+    padding: 5px;
+    font-size: 12pt;
+    background-color: rgb(81, 81, 218);
+    font-weight: 600;
+    color: white;
+    margin: 1%;
+}
+
+footer{
+    text-align: center;
+    margin-top: 2%;
+    font-size: 10pt;
 }

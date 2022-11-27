@@ -4,25 +4,52 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>M.A.S</title>
     <link rel="stylesheet" href="css/main.css">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
 <body>
     <header class="header">
         <a href="/"><img src="img/mono.png" alt="" class="mono" srcset=""></a>
-        <h2 class="name">Control de asistencia de maestros</h2>
+        <h2 class="name">C.E.M.G Marco Aurelio Soto (Control de Inasistencias)</h2>
     </header>
 
     <aside class="aside">
         <a href="maestros.ejs" class="aside-e">Maestros</a>
         <a href="control.ejs" class="aside-e">Agg Inasistencia</a>
         <a href="Reporte.ejs" class="aside-e">Reporte</a>
-        <a href="Graficos.ejs" class="aside-e">Graficos</a>
+        <a href="Graficos.ejs" class="aside-e">Graficos/General</a>
+        <a href="chart_teacher.ejs" class="aside-e">Grafico/Individual</a>
     </aside>
 
     <main class="main">
-        
+        <h2 style="text-align: center; font-family: sans-serif;font-size: 15pt;font-weight: 600;" id="phrase"></h2>
+        <img src="img/mono.png" height="80%" style="position: relative; left: 30%;" alt="">
+        <footer>Copyright &copy 2022 by Neyfer Coto - All Rights Reserved</footer>
     </main>
 
+
+    <script>
+        async function type_thanks() {
+        let title = document.getElementById("phrase");
+        let phrase = "C.E.M.G: Marco Aurelio Soto (Innovación, Trabajo y Estudio!!!)";
+        let phrase_letters = phrase.split("");
+            for (i = 0; i < phrase_letters.length; i++) {
+                await milisegundos(120);
+                title.textContent += phrase_letters[i];
+            }
+    setTimeout(() => remove(), 2000);
+    return
+}
+
+async function milisegundos(ms) {
+    let promesa = new Promise(function(res) {
+        setTimeout(res, ms);
+    })
+    return promesa;
+}
+
+type_thanks();
+    </script>
 </body>
 </html>

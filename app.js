@@ -10,17 +10,15 @@ const { compile } = require("ejs");
 const { json } = require("express");
 
 let con = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "",
-    database: "asistencia"
+    host: "sql9.freemysqlhosting.net",
+    user: "sql9581083",
+    password: "9TL2l3y5xk",
+    database: "sql9581083"
 })
 
 con.connect(function(err){
     if(err){
         throw err;
-    }else{
-        console.log("conected to mysql");
     }
 })
 
@@ -49,16 +47,16 @@ app.get("/maestros.ejs", (req, res) => {
 //GET TEACHERS PERSONAL INFO
 app.get("/info", (req, res) =>{
     con.query("SELECT * FROM maestros", function(err, rows, field){
-        console.log(rows);
         res.json(rows);
     });
 })
+
 
 //GET TEACHER'S ABSENCES
 app.get("/report", (req, res)=>{
 
   
-    con.query("SELECT inasistencia.maestro, inasistencia.tipo, inasistencia.fecha, maestros.tel, maestros.area FROM inasistencia, maestros WHERE inasistencia.maestro = maestros.name", function(err, rows){
+    con.query("SELECT inasistencia.id, inasistencia.maestro, inasistencia.tipo, inasistencia.fecha, maestros.tel, maestros.area FROM inasistencia, maestros WHERE inasistencia.maestro = maestros.name ORDER BY id DESC", function(err, rows){
         if(err){
             throw err
         }else{
@@ -74,18 +72,13 @@ app.post("/add-inasistencia", (req, res)=>{
     let teacher = req.body.maestros;
     let type = req.body.type;
     let date = req.body.date;
-    console.log(type);
     con.query(`INSERT INTO inasistencia(maestro, tipo, fecha) VALUES('${teacher}', '${type}', '${date}')`);
-    con.query(`SELECT * FROM i_t WHERE name = '${teacher}'`, function(err, rows){
-        let total = rows[0].total + 1;
-        con.query(`UPDATE i_t SET total = ${total} WHERE name = '${teacher}'`);
-    })
-    res.redirect("Reporte.ejs?success");
+    res.redirect("Reporte.ejs");
 })
 
 
 app.get("/charts", (req, res)=>{
-    con.query(`SELECT * FROM i_t`, function(err, rows){
+    con.query(`SELECT * FROM maestros`, function(err, rows){
         res.json(rows);
     })
 })
@@ -105,6 +98,11 @@ app.get("/Reporte.ejs", (req, res) => {
     res.render("Reporte");
 })
 
+//LOAD THE CHARTS BY TEACHER
+app.get("/chart_teacher.ejs", (req, res)=>{
+    res.render("chart_teacher");
+})
+
 //fORM SUBMITION TO ADD TEACHERS
 
 app.post("/add-m", function(req, res){
@@ -112,20 +110,133 @@ app.post("/add-m", function(req, res){
     var tel = req.body.tel;
     var mail = req.body.mail;
     var area = req.body.area;
-    con.query(`INSERT INTO maestros(name, tel, email, area) VALUES ('${name}', '${tel}', '${mail}', '${area}')`);
+    con.query(`INSERT INTO maestros(name, tel, email, area) VALUES ('${name}', '${tel}', '${mail}', '${area}')`, function(err){
+        if(!err){
+            res.redirect("maestros.ejs?success");
+        }
+    });
     con.query(`INSERT INTO i_t(name, total) VALUES('${name}', 0)`);
-    res.redirect("maestros.ejs?success");
+    
 })
 
 //GET INFO FOR THE GRAPHICS
 
-app.get("/month/:name", (req, res)=>{
+app.get("/month/:name/:month", (req, res)=>{
     let name = req.params.name;
-    con.query(`SELECT * FROM inasistencia WHERE maestro = '${name}'`, function(err, rows){
-    res.json(rows);
-    console.log(rows);
-    })
+    let month = req.params.month;
+
+    if(month == 0){
+        con.query(`SELECT * FROM inasistencia WHERE maestro = '${name}'`, function(err, rows){
+            res.json(rows);
+        })
+    }else{
+        con.query(`SELECT * FROM inasistencia WHERE maestro = '${name}' AND MONTH(fecha) = ${month}`, function(err, rows){
+            res.json(rows);
+            })
+    }
 })
 
+//GET INFO TO EDIT ABSENCES
+
+app.get("/absence_form_edit/:id", (req, res) =>{
+    let id = req.params.id;
+    con.query(`SELECT * FROM inasistencia WHERE id = ${id}`, function(err, rows){
+        res.json(rows);
+    });
+})
+
+//EDIT THE ABSENCE RECORD
+
+app.post("/edit-i", (req, res)=>{
+    let teacher = req.body.maestros;
+    let type = req.body.type;
+    let date = req.body.date;
+    let id = req.body.id_h;
+
+    con.query(`UPDATE inasistencia SET maestro = '${teacher}', tipo = '${type}', fecha = '${date}' WHERE id = ${id}`);
+    res.redirect("Reporte.ejs?success_edit");
+})
+
+//DELETE AN ABSENCE RECORD
+
+app.get("/delete_i/:id", (req, res)=>{
+    let id = req.params.id;
+
+    con.query(`DELETE FROM inasistencia WHERE id = ${id}`, (err, res)=>{
+        if(err){
+            throw err;
+        }
+    });
+
+    res.json("NEYFER THE BEST");
+    
+})
+
+app.get("/getteacher/:id", (req, res)=>{
+    let id = req.params.id;
+    con.query(`SELECT * FROM maestros WHERE id = ${id}`, (err, rows)=>{
+        res.json(rows);
+    })
+})      
+
+app.post("/edit_m", (req, res)=>{
+    let name = req.body.nom;
+    let tel = req.body.tel;
+    let mail = req.body.mail;
+    let area = req.body.area;
+    let id = req.body.id;
+
+    con.query(`UPDATE maestros SET name = '${name}', tel = '${tel}', email = '${mail}', area = '${area}' WHERE id = ${id}`);
+
+    res.redirect("maestros.ejs?success_edit")
+})
+
+app.get("/delete_m/:id", (req, res)=>{
+    let id = req.params.id;
+
+    con.query(`DELETE FROM maestros WHERE id = ${id}`);
+    res.json("NEYFER THE BEST");
+})
+
+app.get("/filter_i/:f1/:f2/:teacher", (req, res)=>{
+    let date1 = req.params.f1;
+    let date2 = req.params.f2; 
+    let teacher = req.params.teacher;
+
+
+     if(date1 == "NEYFER"){
+        con.query(`SELECT inasistencia.id, inasistencia.maestro, inasistencia.tipo, inasistencia.fecha, maestros.tel, maestros.area FROM inasistencia, maestros WHERE inasistencia.maestro = maestros.name AND maestro = '${teacher}'`, (err, rows)=>{
+            res.json(rows);
+        })
+    }else if (teacher == "0"){
+        con.query(`SELECT inasistencia.id, inasistencia.maestro, inasistencia.tipo, inasistencia.fecha, maestros.tel, maestros.area FROM inasistencia, maestros WHERE inasistencia.maestro = maestros.name AND (fecha BETWEEN '${date1}'AND '${date2}')`, (err, rows)=>{
+            res.json(rows);
+        })
+    }else{
+        con.query(`SELECT inasistencia.id, inasistencia.maestro, inasistencia.tipo, inasistencia.fecha, maestros.tel, maestros.area FROM inasistencia, maestros WHERE inasistencia.maestro = maestros.name AND (fecha BETWEEN '${date1}'AND '${date2}') AND maestro = '${teacher}'`, (err, rows)=>{
+            res.json(rows);
+        })
+    }
+
+
+})
+
+//GET THE DATA FOR PAGE TWO OF CHARTS
+
+app.get("/teacher/:month/:name", (req, res)=>{
+    let month = req.params.month;
+    let name = req.params.name;
+   con.query(`SELECT * FROM inasistencia WHERE maestro = '${name}' AND MONTH(fecha) = ${month}`, (err, rows)=>{
+    res.json(rows);
+   })
+})
+
+app.get("/total_absences/:name", (req, res)=>{
+    let name = req.params.name;
+
+    con.query(`SELECT * FROM inasistencia WHERE maestro = '${name}'`, (err, rows)=>{
+        res.json(rows);
+    })
+})
 
 app.listen(port, ()=>console.log("Happy Hacking!!"))
