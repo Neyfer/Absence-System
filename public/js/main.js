@@ -315,6 +315,10 @@ async function get(de, times, label, req){
                 getTotal(i+1, values);
             }
             if(i == names.length - 1){
+                console.log("Cantidad Nombres: " + names.length)
+                console.log("Cantidad values: " + values.length)
+                console.log("Nombres: " + names)
+                console.log("values:" + values)
                 setTimeout(() => {
                     console.log("about to render")
                     const ctx = document.getElementById('myChart').getContext('2d');
@@ -351,7 +355,7 @@ async function get(de, times, label, req){
                         }
                     }
                 });
-                }, 1000);
+                }, 600);
                 
             }
         }
