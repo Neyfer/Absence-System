@@ -1,6 +1,8 @@
 
 const baseURL = "https://neyfer-m-a-s.onrender.com/info";
 
+console.log("3.0")
+
 if(document.URL.includes("maestros.ejs") || document.URL.includes("control.ejs")){
     get_maestros();
 }
