@@ -315,14 +315,13 @@ async function get(de, times, label, req){
 
         for(i=0;i<names.length;i++){
             if(document.URL.includes("Graficos.ejs")){
-<<<<<<< HEAD
+
              getTotal(names[i], values, names);
             }else{
                  getTotal(i+1, values);
             }
             if(i == names.length - 1){
                 
-=======
             await getTotal(names[i], values);
             }else{
                 await getTotal(i+1, values);
@@ -332,7 +331,6 @@ async function get(de, times, label, req){
                 console.log("Cantidad values: " + values.length)
                 console.log("Nombres: " + names)
                 console.log("values:" + values)
->>>>>>> e6c4319bff9855ab95dae6b23ae61bc074839f1f
                 setTimeout(() => {
                     console.log(values)
                     console.log(names.length)
