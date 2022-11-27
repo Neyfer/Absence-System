@@ -5,7 +5,6 @@
   "main": "app.js",
   "scripts": {
     "test": "start",
-    "start": "node app.js"
   },
   "author": "Neyfer Coto",
   "license": "ISC",
