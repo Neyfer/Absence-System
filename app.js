@@ -126,14 +126,15 @@ app.get("/month/:name/:month", (req, res)=>{
     let month = req.params.month;
 
     if(month == 0){
-        con.query(`SELECT * FROM inasistencia WHERE maestro = '${name}'`, function(err, rows){
-            console.log(rows.length);
-            res.json(rows);
+        con.query(`
+        select inasistencia.tipo, maestros.name from inasistencia, maestros WHERE inasistencia.maestro = maestros.name order by maestros.id ASC;`, async function(err, rows){
+            console.log(rows);
+            await res.json(rows);
         })
     }else{
-        con.query(`SELECT * FROM inasistencia WHERE maestro = '${name}' AND MONTH(fecha) = ${month}`, function(err, rows){
+        con.query(`SELECT * FROM inasistencia WHERE maestro = '${name}' AND MONTH(fecha) = ${month}`, async function(err, rows){
             console.log(rows.length);
-            res.json(rows);
+            await res.json(rows);
             })
     }
 })

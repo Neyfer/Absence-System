@@ -281,12 +281,17 @@ let authotization = false;
         method: "GET"
     })
     let data = await res.json();
-    console.log(data);
-    list.push(data.length);
-    if(list.length == names.length - 1){
-        authotization = true;
-        console.log(authotization);
-    }
+    let data2 = Array();
+
+    names.forEach(name=>{
+        data.forEach(item=>{
+            data2.push(item.name);
+        })
+        let each = data2.filter(x => x==`${name}`).length;
+        list.push(each);
+        console.log(list);
+    })
+    
 }else{
     let teacher = document.getElementById("m-op");
         list.pop();
@@ -313,20 +318,12 @@ async function get(de, times, label, req){
 
         console.log(values)
 
-        for(i=0;i<names.length;i++){
             if(document.URL.includes("Graficos.ejs")){
 
-             getTotal(names[i], values, names);
+             getTotal(names, values, names);
             }else{
-                 getTotal(i+1, values);
+                 getTotal(1, values);
             }
-            if(i == names.length - 1){
-                
-            await getTotal(names[i], values);
-            }else{
-                await getTotal(i+1, values);
-            }
-            if(i == names.length - 1 && values.length > 0){
                 console.log("Cantidad Nombres: " + names.length)
                 console.log("Cantidad values: " + values.length)
                 console.log("Nombres: " + names)
@@ -370,10 +367,6 @@ async function get(de, times, label, req){
                     }
                 });
                 }, 6000);
-                
-            }
-        }
-        
 
         times = 1;
 
