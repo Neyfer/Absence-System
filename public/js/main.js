@@ -355,7 +355,7 @@ async function get(de, times, label, req){
                         }
                     }
                 });
-                }, 600);
+                }, 3000);
                 
             }
         }
