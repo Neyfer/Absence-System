@@ -306,7 +306,7 @@ async function get(de, times, label, req){
             names.push(item)
         })
 
-        console.log(label)
+        console.log(values)
 
         for(i=0;i<names.length;i++){
             if(document.URL.includes("Graficos.ejs")){
