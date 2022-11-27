@@ -10,10 +10,10 @@ const { compile } = require("ejs");
 const { json } = require("express");
 
 let con = mysql.createConnection({
-    host: "sql9.freemysqlhosting.net",
-    user: "sql9581083",
-    password: "9TL2l3y5xk",
-    database: "sql9581083"
+    host: "sql.freedb.tech",
+    user: "freedb_neyfer",
+    password: "nPcR@u4dK7QGn!4",
+    database: "freedb_asistencia"
 })
 
 con.connect(function(err){
@@ -127,10 +127,12 @@ app.get("/month/:name/:month", (req, res)=>{
 
     if(month == 0){
         con.query(`SELECT * FROM inasistencia WHERE maestro = '${name}'`, function(err, rows){
+            console.log(rows.length);
             res.json(rows);
         })
     }else{
         con.query(`SELECT * FROM inasistencia WHERE maestro = '${name}' AND MONTH(fecha) = ${month}`, function(err, rows){
+            console.log(rows.length);
             res.json(rows);
             })
     }

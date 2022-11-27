@@ -1,5 +1,5 @@
 
-const baseURL = "https://adventurous-sock-lion.cyclic.app/info";
+const baseURL = "http://localhost:3000/info";
 
 if(document.URL.includes("maestros.ejs") || document.URL.includes("control.ejs")){
     get_maestros();
@@ -72,7 +72,7 @@ function fill_Teachers(data){
         btn.addEventListener("click", (e)=>{
         e.preventDefault();
         teachers_m.style.display = "block";
-            fetch(`https://adventurous-sock-lion.cyclic.app/getteacher/${btn.id}`).then(response=>response.json()).then(data=>{
+            fetch(`http://localhost:3000/getteacher/${btn.id}`).then(response=>response.json()).then(data=>{
                 console.log(data)
                 document.getElementById("name").value = data[0].name;
                 document.getElementById("tel").value = data[0].tel;
@@ -91,7 +91,7 @@ function fill_Teachers(data){
          btn.addEventListener("click", (e)=>{
              e.preventDefault();
          if(confirm("¿SEGURO QUE QUIERES ELIMINAR ESTE MAESTRO(A)?") == true){
-             fetch(`https://adventurous-sock-lion.cyclic.app/delete_m/${btn.id}`).then(response => response.json()).then(date=>{
+             fetch(`http://localhost:3000/delete_m/${btn.id}`).then(response => response.json()).then(date=>{
                  alert("Maestro Eliminado con exito!!");
                  location.reload();
              })
@@ -115,7 +115,7 @@ function fill_teacher_option(data){
 //GET INFO FROM ABSENCE TABLE!!!!!
 
 async function get_Report(){
-    const res = await fetch("https://adventurous-sock-lion.cyclic.app/report", {
+    const res = await fetch("http://localhost:3000/report", {
         method: "GET"
     })
 
@@ -159,14 +159,14 @@ function fill_Absence(data){
                 absence_f.style.display = "block";
 
                 //FILL EVERYTHING
-                fetch("https://adventurous-sock-lion.cyclic.app/info").then(response=>response.json()).then(info=>{
+                fetch("http://localhost:3000/info").then(response=>response.json()).then(info=>{
                     info.forEach(data=>{
                         let html = `<option value="${data.name}">${data.name}</option>`
                         document.getElementById("maestros_option").innerHTML += html;
                     })
                     
                 })
-                fetch(`https://adventurous-sock-lion.cyclic.app/absence_form_edit/${btn.id}`).then(response => response.json()).then(data=>{
+                fetch(`http://localhost:3000/absence_form_edit/${btn.id}`).then(response => response.json()).then(data=>{
                     document.getElementById("maestros_option").value = data[0].maestro;
                     document.getElementById("type").value = data[0].tipo;
                     document.getElementById("id_h").value = data[0].id;
@@ -194,7 +194,7 @@ function fill_Absence(data){
             btn.addEventListener("click", (e)=>{
                 e.preventDefault();
             if(confirm("¿SEGURO QUE QUIERES ELIMINAR ESTA INASISTENCIA?") == true){
-                fetch(`https://adventurous-sock-lion.cyclic.app/delete_i/${btn.id}`).then(response => response.json()).then(date=>{
+                fetch(`http://localhost:3000/delete_i/${btn.id}`).then(response => response.json()).then(date=>{
                     alert("Inasistencia Eliminada con exito!!");
                     location.reload();
                          })
@@ -218,7 +218,7 @@ function fill_Absence(data){
             f1 = "NEYFER";
             f2 = "NEYFER2"
         }
-            fetch(`https://adventurous-sock-lion.cyclic.app/filter_i/${f1}/${f2}/${teachers}`).then(response => response.json()).then(data =>{
+            fetch(`http://localhost:3000/filter_i/${f1}/${f2}/${teachers}`).then(response => response.json()).then(data =>{
                 if(data.length > 0){
                     document.getElementById("absences_table_body").innerHTML = "";
                 
@@ -270,22 +270,27 @@ function fill_Absence(data){
     let values = Array();
     
 //Get the total number of absences
-
-    async function getTotal(item, list)
+let authotization = false;
+    async function getTotal(item, list, names)
     {
 
         if(document.URL.includes("Graficos.ejs")){
         let month = document.getElementById("m-op");
         list.pop();
-        const res = await fetch(`https://adventurous-sock-lion.cyclic.app/month/${item}/${month.value}`, {
+        const res = await fetch(`http://localhost:3000/month/${item}/${month.value}`, {
         method: "GET"
     })
     let data = await res.json();
+    console.log(data);
     list.push(data.length);
+    if(list.length == names.length - 1){
+        authotization = true;
+        console.log(authotization);
+    }
 }else{
     let teacher = document.getElementById("m-op");
         list.pop();
-        const res = await fetch(`https://adventurous-sock-lion.cyclic.app/teacher/${item}/${teacher.value}`, {
+        const res = await fetch(`http://localhost:3000/teacher/${item}/${teacher.value}`, {
         method: "GET"
     })
     let data = await res.json();
@@ -306,16 +311,19 @@ async function get(de, times, label, req){
             names.push(item)
         })
 
-        console.log(label)
+        console.log(values)
 
         for(i=0;i<names.length;i++){
             if(document.URL.includes("Graficos.ejs")){
-            getTotal(names[i], values);
+             getTotal(names[i], values, names);
             }else{
-                getTotal(i+1, values);
+                 getTotal(i+1, values);
             }
             if(i == names.length - 1){
+                
                 setTimeout(() => {
+                    console.log(values)
+                    console.log(names.length)
                     console.log("about to render")
                     const ctx = document.getElementById('myChart').getContext('2d');
                     
@@ -351,10 +359,11 @@ async function get(de, times, label, req){
                         }
                     }
                 });
-                }, 600);
+                }, 6000);
                 
             }
         }
+        
 
         times = 1;
 
@@ -366,7 +375,7 @@ async function get(de, times, label, req){
 if(document.URL.includes("Graficos.ejs")){
     let times = 0;
     let teachers = Array();
-    fetch(`https://adventurous-sock-lion.cyclic.app/charts`).then(response => response.json()).then(data=>{
+    fetch(`http://localhost:3000/charts`).then(response => response.json()).then(data=>{
 
         data.forEach(item=>{
             teachers.push(item.name)
@@ -389,7 +398,7 @@ if(document.URL.includes("Graficos.ejs")){
 if(document.URL.includes("chart_teacher.ejs")){
     let times = 0;
 
-    fetch(`https://adventurous-sock-lion.cyclic.app/charts`).then(response=>response.json()).then(data=>{
+    fetch(`http://localhost:3000/charts`).then(response=>response.json()).then(data=>{
         data.forEach(item=>{
             html = `<option value = '${item.name}'>${item.name}</option>`;
             document.getElementById("m-op").innerHTML += html;
@@ -401,7 +410,7 @@ if(document.URL.includes("chart_teacher.ejs")){
 
         let maestro = document.getElementById("m-op").value;
         console.log(maestro);
-        fetch(`https://adventurous-sock-lion.cyclic.app/total_absences/${maestro}`).then(response => response.json()).then(data=>{
+        fetch(`http://localhost:3000/total_absences/${maestro}`).then(response => response.json()).then(data=>{
         console.log(data)
         document.getElementById("total").innerText = "Total: " + data.length;
         })
