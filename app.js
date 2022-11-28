@@ -112,10 +112,9 @@ app.post("/add-m", function(req, res){
     var area = req.body.area;
     con.query(`INSERT INTO maestros(name, tel, email, area) VALUES ('${name}', '${tel}', '${mail}', '${area}')`, function(err){
         if(!err){
-            res.redirect("https://neyfer-m-a-s.onrender.com/maestros.ejs?success");
+            res.redirect("maestros.ejs?success");
         }
     });
-    con.query(`INSERT INTO i_t(name, total) VALUES('${name}', 0)`);
     
 })
 
