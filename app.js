@@ -10,10 +10,10 @@ const { compile } = require("ejs");
 const { json } = require("express");
 
 let con = mysql.createConnection({
-    host: "sql.freedb.tech",
-    user: "freedb_neyfer",
-    password: "nPcR@u4dK7QGn!4",
-    database: "freedb_asistencia"
+    host: "sql9.freesqldatabase.com",
+    user: "sql9581083",
+    password: "9TL2l3y5xk",
+    database: "sql9581083"
 })
 
 con.connect(function(err){
@@ -122,20 +122,16 @@ app.post("/add-m", function(req, res){
 //GET INFO FOR THE GRAPHICS
 
 app.get("/month/:name/:month", (req, res)=>{
-    let name = req.params.name;
     let month = req.params.month;
-    console.log(name)
 
     if(month == 0){
         con.query(`
         select inasistencia.tipo, maestros.name from inasistencia, maestros WHERE inasistencia.maestro = maestros.name order by maestros.id ASC;`, async function(err, rows){
-            console.log(rows);
             await res.json(rows);
         })
     }else{
-        con.query(`SELECT * FROM inasistencia WHERE maestro = '${name}' AND MONTH(fecha) = ${month}`, async function(err, rows){
-            console.log(rows.length);
-            console.log(rows);
+        console.log(month);
+        con.query(`select inasistencia.tipo, inasistencia.fecha, maestros.name from inasistencia, maestros WHERE inasistencia.maestro = maestros.name AND MONTH(inasistencia.fecha) = ${month} order by maestros.id ASC;`, async function(err, rows){
             await res.json(rows);
             })
     }
@@ -229,10 +225,14 @@ app.get("/filter_i/:f1/:f2/:teacher", (req, res)=>{
 //GET THE DATA FOR PAGE TWO OF CHARTS
 
 app.get("/teacher/:month/:name", (req, res)=>{
-    let month = req.params.month;
     let name = req.params.name;
-   con.query(`SELECT * FROM inasistencia WHERE maestro = '${name}' AND MONTH(fecha) = ${month}`, (err, rows)=>{
-    res.json(rows);
+    con.query(`select inasistencia.tipo, inasistencia.fecha, months.mes from inasistencia, months WHERE inasistencia.maestro = '${name}' AND MONTH(inasistencia.fecha) = months.id order by months.id ASC;`, (err, rows)=>{ 
+        
+        res.json(rows);
+
+        if(err){
+            throw err
+        }
    })
 })
 

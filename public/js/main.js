@@ -272,7 +272,6 @@ function fill_Absence(data){
     let values = Array();
     
 //Get the total number of absences
-let authotization = false;
     async function getTotal(item, list, names)
     {
 
@@ -286,24 +285,48 @@ let authotization = false;
     let data2 = Array();
 
     names.forEach(name=>{
+        if(name == ""){
+            console.log("problemmm")
+        }
+        data2 = [];
+        console.log(name)
         data.forEach(item=>{
             data2.push(item.name);
         })
-        let each = data2.filter(x => x==`${name}`).length;
-        list.push(each);
-        console.log(list);
+            let each = data2.filter(x => x==`${name}`).length;
+            console.log(each);
+            list.push(each);
+            console.log(list)
+        
     })
-    
-    console.log(data);
-    list.push(data.length);
 }else{
     let teacher = document.getElementById("m-op");
         list.pop();
         const res = await fetch(`https://neyfer-m-a-s.onrender.com/teacher/${item}/${teacher.value}`, {
         method: "GET"
     })
+
     let data = await res.json();
-    list.push(data.length);
+    console.log(data)
+    let data2 = Array();
+
+    console.log(names)
+
+    names.forEach(name=>{
+        if(name == ""){
+            console.log("problemmm")
+        }
+
+       
+        data2 = [];
+        console.log(name)
+        data.forEach(item=>{
+            data2.push(item.mes);
+        })
+            let each = data2.filter(x => x==`${name}`).length;
+            list.push(each);
+            console.log(list)
+    })
 }
 }
 
@@ -314,29 +337,21 @@ async function get(de, times, label, req){
         document.getElementById('myChart').remove();
         document.getElementById("canvas-holder").innerHTML = `<canvas id="myChart"></canvas>`;
         names = [];
+        values = [];
     }
      
         label.forEach(item=>{
             names.push(item)
         })
 
-        console.log(values)
 
             if(document.URL.includes("Graficos.ejs")){
 
              getTotal(names, values, names);
             }else{
-                 getTotal(1, values);
+                 getTotal(names, values, names);
             }
-            if(i == names.length - 1){
-                console.log("Cantidad Nombres: " + names.length)
-                console.log("Cantidad values: " + values.length)
-                console.log("Nombres: " + names)
-                console.log("values:" + values)
                 setTimeout(() => {
-                    console.log(values)
-                    console.log(names.length)
-                    console.log("about to render")
                     const ctx = document.getElementById('myChart').getContext('2d');
                     
                     const myChart = new Chart(ctx, {
@@ -364,20 +379,21 @@ async function get(de, times, label, req){
                             ],
                             borderWidth: 1
                         }]
+
                     },
                     options: {
                         scales: {
-                            y: 1
+                            y: 0.5
                         }
                     }
                 });
-                }, 6000);
+                }, 600);
 
         times = 1;
 
 }
 
-}
+
 //SUBMIT THE MONTH FORM FOR THE GRAPHICS
 
 if(document.URL.includes("Graficos.ejs")){
@@ -413,14 +429,15 @@ if(document.URL.includes("chart_teacher.ejs")){
         })
         months = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
 
-        get(0, times, months, "teacher_chart/Coto");
+        get(0, times, months, "teacher_chart/");
 
 
+        document.getElementById("total").innerText = "Total: "
         let maestro = document.getElementById("m-op").value;
-        console.log(maestro);
         fetch(`https://neyfer-m-a-s.onrender.com/total_absences/${maestro}`).then(response => response.json()).then(data=>{
-        console.log(data)
+        if(data.length > 0){
         document.getElementById("total").innerText = "Total: " + data.length;
+        }
         })
     })
     
@@ -432,6 +449,16 @@ if(document.URL.includes("chart_teacher.ejs")){
            setTimeout(() => {
             get(1, null, months, "teacher_chart") 
             }, 10);
+
+        document.getElementById("total").innerText = "Total: "
+        let maestro = document.getElementById("m-op").value;
+        fetch(`https://neyfer-m-a-s.onrender.com/total_absences/${maestro}`).then(response => response.json()).then(data=>{
+        if(data.length > 0){
+        document.getElementById("total").innerText = "Total: " + data.length;
+        }
         })
+        })
+
+
     }
 
