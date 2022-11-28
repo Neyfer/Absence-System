@@ -11,6 +11,7 @@
     <header class="header">
         <a href="/"><img src="img/mono.png" alt="" class="mono" srcset=""></a>
         <h2 class="name">C.E.M.G Marco Aurelio Soto (Control de Inasistencias)</h2>
+        <img src="img/nav-phone.png" class="p-nav" alt="" style="display: none;" class="mono" srcset="">
     </header>
 
     <aside class="aside">
@@ -21,8 +22,21 @@
         <a href="chart_teacher.ejs" class="aside-e">Grafico/Individual</a>
     </aside>
 
+    <div class="nav_manto"></div>
+        <nav class="phone_nav">
+            
+            <a href="maestros.ejs" class="aside-e">Maestros</a>
+            <a href="control.ejs" class="aside-e">Agg Inasistencia</a>
+            <a href="Reporte.ejs" class="aside-e" style="background-color: rgb(187, 187, 187); font-weight: 600;">Reporte</a>
+            <a href="Graficos.ejs" class="aside-e">Graficos/General</a>
+            <a href="chart_teacher.ejs" class="aside-e">Grafico/Individual</a>
+        </nav>
+    </div>
+ 
+    
+
     <main class="main">
-        <form action="" method="post" style="margin-bottom: 2%; margin-left:5%; margin-top:1%;">
+        <form action="" method="post" style="margin-bottom: 2%; margin-left:5%; margin-top:1%;" class="report_form">
             <label for="f1" class="text" style="left: 0%;">Desde</label> <input  reaquired type="date" name="f1" id="f1" class="text" style="left:0%">
             <label for="f2" class="text" style="left: 0%;">Hasta</label> <input  reaquired type="date" name="f2" id="f2" class="text" style="left:0%">
             <label for="m" class="text" id="" style="left: 0%;">Maestro</label>

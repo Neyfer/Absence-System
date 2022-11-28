@@ -12,6 +12,7 @@
     <header class="header">
         <a href="/"><img src="img/mono.png" alt="" class="mono" srcset=""></a>
         <h2 class="name">C.E.M.G Marco Aurelio Soto (Control de Inasistencias)</h2>
+        <img src="img/nav-phone.png" class="p-nav" alt="" style="display: none;" class="mono" srcset="">
     </header>
 
     <aside class="aside">
@@ -22,9 +23,20 @@
         <a href="chart_teacher.ejs" class="aside-e">Grafico/Individual</a>
     </aside>
 
+    <div class="nav_manto"></div>
+        <nav class="phone_nav">
+            
+            <a href="maestros.ejs" class="aside-e">Maestros</a>
+            <a href="control.ejs" class="aside-e">Agg Inasistencia</a>
+            <a href="Reporte.ejs" class="aside-e" >Reporte</a>
+            <a href="Graficos.ejs" class="aside-e">Graficos/General</a>
+            <a href="chart_teacher.ejs" class="aside-e">Grafico/Individual</a>
+        </nav>
+    </div>
+
     <main class="main">
         <h2 style="text-align: center; font-family: sans-serif;font-size: 15pt;font-weight: 600;" id="phrase"></h2>
-        <img src="img/mono.png" height="80%" style="position: relative; left: 30%;" alt="">
+        <img src="img/mono.png" height="80%" style="position: relative; left: 30%;" class="main_picture" alt="">
         <footer>Copyright &copy 2022 by Neyfer Coto - All Rights Reserved</footer>
     </main>
 
@@ -51,5 +63,7 @@ async function milisegundos(ms) {
 
 type_thanks();
     </script>
+
+    <script src="js/main.js"></script>
 </body>
 </html>

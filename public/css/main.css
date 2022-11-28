@@ -160,3 +160,90 @@ footer{
     margin-top: 2%;
     font-size: 10pt;
 }
+
+.phone_nav{
+    display: none;
+}
+
+
+/*CELLPHONESSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS*/
+
+@media only screen and (max-width: 600px) {
+    .name{
+        font-size: 4.2vw;
+        left: 20%;
+    }
+
+    .main{
+        width: 100%;
+        left: 1%;
+        font-size: 2.5vw !important;
+    }
+
+    .text{
+        padding: 1px;
+        font-size: 2.5vw;
+    }
+
+    .p-nav{
+        position: absolute;
+        left: 85%;
+        top: 25%;
+        width: 15%;
+        display: block !important;
+    }
+
+    .phone_nav{
+        position: fixed;
+        font-size: 2.5vw;
+        background-color: rgb(255, 255, 255);
+        z-index: 1;
+        width: 100vw;
+        margin: 0;
+        left: 0%;
+        top: 9%;
+        display: none;
+    }
+
+    .aside-e{
+        padding: 2px;
+        text-align: center;
+        font-weight: 600;
+        font-size: 4vw;;
+        border-bottom: 1px solid black;
+        border-top: 1px solid black;
+        width: 100%;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        margin: 0;
+    }
+
+    .add_maestro{
+        font-size: 2.5vw;
+        padding: 5px;
+    } 
+
+    .apply{
+        font-size: 2.5vw;
+    }
+
+    .report_form{
+        margin-left: 0 !important;
+    }
+
+    #canvas-holder{
+        width: 100vw !important;
+        height: max-content !important;
+    }
+
+    .main_picture{
+        width: 90vw !important;
+        height: auto !important;
+        left: 4vw !important;
+        margin: auto;
+    }
+
+    .header{
+        padding-top: 3%;
+    }
+}
