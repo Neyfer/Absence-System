@@ -115,7 +115,6 @@ app.post("/add-m", function(req, res){
             res.redirect("maestros.ejs?success");
         }
     });
-    con.query(`INSERT INTO i_t(name, total) VALUES('${name}', 0)`);
     
 })
 
