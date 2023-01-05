@@ -10,11 +10,10 @@ const { compile } = require("ejs");
 const { json } = require("express");
 
 let con = mysql.createConnection({
-    host: "db4free.net ",
-    user: "neyfercoto",
-    password: "Neyfer@2005",
-    port: "3306",
-    database: "asistencia"
+    host: "sql.freedb.tech ",
+    user: "freedb_neyfer",
+    password: "nPcR@u4dK7QGn!4",
+    database: "freedb_asistencia"
 })
 
 con.connect(function(err){
