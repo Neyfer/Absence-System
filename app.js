@@ -13,6 +13,7 @@ let con = mysql.createConnection({
     host: "db4free.net ",
     user: "neyfercoto",
     password: "Neyfer@2005",
+    port: "3306",
     database: "asistencia"
 })
 
